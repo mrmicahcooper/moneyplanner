@@ -1,0 +1,133 @@
+{
+  "app/adapters/*.js": {
+    "command": "adapter",
+    "template": [
+      "import ApplicationAdapter from './application';",
+      "",
+      "export default ApplicationAdapter.extend({",
+      "});",
+    ]
+  },
+
+  "app/components/*.js": {
+    "command": "component",
+    "template": [
+      "import Ember from 'ember';",
+      "",
+      "export default Ember.Component.extend({",
+      "});",
+    ]
+  },
+
+  "app/controllers/*.js": {
+    "command": "controller",
+    "template": [
+      "import Ember from 'ember';",
+      "",
+      "export default Ember.Controller.extend({",
+      "",
+      "});",
+    ]
+  },
+
+  "app/components/*/component.js": {
+    "command": "pcomponent",
+    "template": [
+      "import Ember from 'ember';",
+      "import ComponentClass from 'mockmachine-frontend/mixins/component-class';",
+      "",
+      "export default Ember.Component.extend(ComponentClass, {",
+      "});",
+    ]
+  },
+
+  "app/components/*/template.hbs": {
+    "command": "ptemplate",
+    "template": [
+      "{{yield}}"
+    ]
+  },
+
+  "app/helpers/*.js": {
+    "command": "helper",
+    "template": [
+      "import Ember from 'ember';",
+      "",
+      "export function {}(params/*, hash*/) {",
+      "  return params;",
+      "}",
+      "",
+      "export default Ember.Helper.helper({});",
+    ]
+  },
+
+  "app/models/*.js": {
+    "command": "model",
+    "template": [
+      "import DS from 'ember-data';",
+      "export default DS.Model.extend({",
+      "",
+      "});",
+    ]
+  },
+
+  "app/router.js": {
+    "command": "paths"
+  },
+
+  "app/routes/*.js": {
+    "command": "route",
+    "template": [
+      "import Ember from 'ember';",
+      "export default Ember.Route.extend({",
+      "",
+      "});",
+    ]
+
+  },
+
+  "app/services/*.js": {
+    "command": "services",
+    "template": [
+      "import Ember from 'ember';",
+      "export default Ember.Service.extend({",
+      "",
+      "});",
+    ]
+
+  },
+
+  "app/styles/*.sass": {
+    "command": "style",
+    "template": [
+      "/* {}.sass */",
+    "",
+    ]
+  },
+  "app/templates/*.hbs": {
+    "command": "template"
+  },
+  "tests/*.js": {
+    "command": "test"
+  },
+  "tests/acceptance/*.js": {
+    "command": "acceptance"
+  },
+  "app/utils/*.js": {
+    "command": "util",
+    "template": [
+      "export default function {}() {",
+    "  return true;",
+    "}",
+    ]
+  },
+  "app/mixins/*.js": {
+    "command": "mixin",
+    "template": [
+      "import Ember from 'ember';",
+      "",
+      "export default Ember.Mixin.,reate({",
+      "});",
+    ]
+  },
+}

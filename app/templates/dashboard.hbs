@@ -1,0 +1,80 @@
+<h1> Dashboard </h1>
+<h2> Accounts </h2>
+
+<form>
+  <h4> Add Account </h4>
+  {{input type=text value=accountName}}
+  <button {{action 'addAccount'}}> Add Account </button>
+</form>
+
+<form class='item-form'>
+  <h4> Add Money Item </h4>
+  <div class='field'>
+    <select onchange={{action (mut fromAccountName) value="target.value"}}>
+      {{#each accounts as |account|}}
+        <option value={{account.name}} selected={{eq account.name fromAccountName}}>{{account.name}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='field'>
+    {{input type=text value=itemName placeholder='Item Name'}}
+  </div>
+
+  <div class='field'>
+    {{input type='number' value=itemAmount placeholder='Amount'}}
+  </div>
+
+  <div class='field'>
+    <select onchange={{action (mut transferAccountName) value="target.value"}}>
+      <option value=''>To Account</option>
+      {{#each model.accounts as |account|}}
+        <option value='{{account.name}}'>{{account.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='field'>
+    <button {{action 'addItem'}}> Add Item </button>
+  </div>
+
+</form>
+
+{{#each model.accounts as |account|}}
+  <div class='account'>
+    <h3> {{account.name}} </h3>
+    <span class='income'>{{account.totalIncome}}</span>
+    +
+    (<span class='expense'>{{account.totalExpenses}}</span>)
+    =
+    <span>
+      {{account.total}}
+    </span>
+
+    <table>
+      <tbody>
+        {{#each account.transferItems as |item|}}
+          <tr class='{{incomeExpense item.transferAmount}}'>
+            <td> {{item.name}} </td>
+            <td class='amount'> {{item.transferAmount}} </td>
+            {{#if item.toAccount}}
+              <td> ({{item.toAccount}}) </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+        {{#each account.items as |item|}}
+          <tr class='{{incomeExpense item.amount}}'>
+            <td> {{item.name}} </td>
+            <td class='amount'> {{item.amount}} </td>
+            {{#if item.toAccount}}
+              <td> ({{item.toAccount}}) </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+  </div>
+
+{{/each}}
