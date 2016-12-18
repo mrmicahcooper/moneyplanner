@@ -9,10 +9,12 @@
 
 <form class='item-form'>
   <h4> Add Money Item </h4>
+
   <div class='field'>
-    <select onchange={{action (mut fromAccountName) value="target.value"}}>
+    <select onchange={{action (mut accountId) value="target.value"}}>
       {{#each accounts as |account|}}
-        <option value={{account.name}} selected={{eq account.name fromAccountName}}>{{account.name}}
+        <option value={{account.id}} selected={{eq account.id accountId}}>
+        {{account.name}}
         </option>
       {{/each}}
     </select>
@@ -27,18 +29,8 @@
   </div>
 
   <div class='field'>
-    <select onchange={{action (mut transferAccountName) value="target.value"}}>
-      <option value=''>To Account</option>
-      {{#each model.accounts as |account|}}
-        <option value='{{account.name}}'>{{account.name}}</option>
-      {{/each}}
-    </select>
-  </div>
-
-  <div class='field'>
     <button {{action 'addItem'}}> Add Item </button>
   </div>
-
 </form>
 
 {{#each model.accounts as |account|}}
@@ -54,15 +46,6 @@
 
     <table>
       <tbody>
-        {{#each account.transferItems as |item|}}
-          <tr class='{{incomeExpense item.transferAmount}}'>
-            <td> {{item.name}} </td>
-            <td class='amount'> {{item.transferAmount}} </td>
-            {{#if item.toAccount}}
-              <td> ({{item.toAccount}}) </td>
-            {{/if}}
-          </tr>
-        {{/each}}
         {{#each account.items as |item|}}
           <tr class='{{incomeExpense item.amount}}'>
             <td> {{item.name}} </td>

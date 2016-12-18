@@ -7,7 +7,6 @@ const { computed, computed: { filterBy, sum, mapBy} } = Ember;
 export default DS.Model.extend({
   name: attr(),
   items: hasMany('item'),
-  transferItems: hasMany('item'),
 
   expenseItems: filterBy('items', 'expense'),
   expenseItemAmounts: mapBy('expenseItems', 'amount'),

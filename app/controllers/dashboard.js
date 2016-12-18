@@ -1,22 +1,12 @@
 import Ember from 'ember';
 
-
 export default Ember.Controller.extend({
-
   accounts: Ember.computed.readOnly('model.accounts'),
-  accountName: null,
+  accountId: Ember.computed('accounts', function() {
+    return this.get('accounts.firstObject.id');
+  }),
   itemAmount: null,
   itemName: null,
-  transferAccountName: null,
-  transferAccount: Ember.computed('transferAccountName', function() {
-    return this.get('accounts').findBy('name', this.get('transferAccountName'));
-  }),
-  fromAccountName: Ember.computed('accounts', function() {
-    return this.get('accounts.firstObject.name');
-  }),
-  fromAccount: Ember.computed('fromAccountName', function() {
-    return this.get('accounts').findBy('name', this.get('fromAccountName'));
-  }),
 
   actions: {
     addAccount() {
@@ -28,11 +18,12 @@ export default Ember.Controller.extend({
     },
 
     addItem() {
+      const accountId =  this.get('accountId');
+      const account = this.store.peekRecord('account', accountId);
       const itemParams = {
-        account: this.get('fromAccount'),
+        account,
         amount: parseInt(this.get('itemAmount')),
         name: this.get('itemName'),
-        transferAccount: this.get('transferAccount'),
       };
 
       this.store.createRecord('item', itemParams);

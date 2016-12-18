@@ -7,12 +7,7 @@ const { computed, computed: { gt, lt }} = Ember;
 export default DS.Model.extend({
   name: attr(),
   amount: attr('number'),
-  transferAmount: computed('amount', function() {
-    const amount = this.get('amount');
-    return amount * -1;
-  }),
-  account: belongsTo('account', { inverse: 'items' }),
-  transferAccount: belongsTo('account', { inverse: 'transferItems' }),
+  account: belongsTo('account'),
   income: gt('amount', 0),
   expense: lt('amount', 0),
 });
