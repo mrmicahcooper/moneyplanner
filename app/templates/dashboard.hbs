@@ -12,8 +12,10 @@
     <article class='account'>
 
       <header>
-        <span> $ {{account.total}} </span>
-        <h3> {{account.name}} </h3>
+        <h2> 
+          {{account.name}} 
+          <span> $ {{account.total}} </span>
+        </h2>
       </header>
 
       <form class='add-item'>
@@ -24,7 +26,7 @@
 
       <table>
         <tbody>
-          {{#each account.items as |item|}}
+          {{#each account.orderedItems as |item|}}
             <tr class='{{incomeExpense item.amount}}'>
               <td> {{item.name}} </td>
               <td class='amount'> {{item.amount}} </td>
