@@ -1,63 +1,46 @@
-<h1> Dashboard </h1>
-<h2> Accounts </h2>
+<header id='header'>
+  <h1 id='logo'> MoneyPlanner </h1>
 
-<form>
-  <h4> Add Account </h4>
-  {{input type=text value=accountName}}
-  <button {{action 'addAccount'}}> Add Account </button>
-</form>
+  <form id='add-account'>
+    {{input type=text value=accountName placeholder='account name'}}
+    <button {{action 'addAccount'}}> Add Account </button>
+  </form>
+</header>
 
-<form class='item-form'>
-  <h4> Add Money Item </h4>
+<main>
+  {{#each model.accounts as |account|}}
+    <article class='account'>
 
-  <div class='field'>
-    <select onchange={{action (mut accountId) value="target.value"}}>
-      {{#each accounts as |account|}}
-        <option value={{account.id}} selected={{eq account.id accountId}}>
-        {{account.name}}
-        </option>
-      {{/each}}
-    </select>
-  </div>
+      <header>
+        <span> $ {{account.total}} </span>
+        <h3> {{account.name}} </h3>
+      </header>
 
-  <div class='field'>
-    {{input type=text value=itemName placeholder='Item Name'}}
-  </div>
+      <form class='add-item'>
+        {{input class='name' type=text value=account.itemName placeholder='Item Name'}}
+        {{input class='amount' type='number' value=account.itemAmount placeholder='Amt/Month'}}
+        <button {{action 'addItem' account}}> add </button>
+      </form>
 
-  <div class='field'>
-    {{input type='number' value=itemAmount placeholder='Amount'}}
-  </div>
+      <table>
+        <tbody>
+          {{#each account.items as |item|}}
+            <tr class='{{incomeExpense item.amount}}'>
+              <td> {{item.name}} </td>
+              <td class='amount'> {{item.amount}} </td>
+              {{#if item.toAccount}}
+                <td> ({{item.toAccount}}) </td>
+              {{/if}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
 
-  <div class='field'>
-    <button {{action 'addItem'}}> Add Item </button>
-  </div>
-</form>
+      <div id='subtotal'>
+        <span class='income'>{{account.totalIncome}}</span>
+        /<span class='expense'>{{account.totalExpenses}}</span>
+      </div>
 
-{{#each model.accounts as |account|}}
-  <div class='account'>
-    <h3> {{account.name}} </h3>
-    <span class='income'>{{account.totalIncome}}</span>
-    +
-    (<span class='expense'>{{account.totalExpenses}}</span>)
-    =
-    <span>
-      {{account.total}}
-    </span>
-
-    <table>
-      <tbody>
-        {{#each account.items as |item|}}
-          <tr class='{{incomeExpense item.amount}}'>
-            <td> {{item.name}} </td>
-            <td class='amount'> {{item.amount}} </td>
-            {{#if item.toAccount}}
-              <td> ({{item.toAccount}}) </td>
-            {{/if}}
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-
-  </div>
-
-{{/each}}
+    </article>
+  {{/each}}
+</main>

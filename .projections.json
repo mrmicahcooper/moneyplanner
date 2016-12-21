@@ -97,7 +97,7 @@
 
   },
 
-  "app/styles/*.sass": {
+  "app/styles/*.scss": {
     "command": "style",
     "template": [
       "/* {}.sass */",

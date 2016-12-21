@@ -1,72 +1,106 @@
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-size: 17px;
 
   p, div, small, h1, h2, h3, h4, h5, ul, li, ol, dt, dd, dl {
     padding: 0;
     margin: 0;
   }
 
-  li {
-    list-style: none;
-    font-size: 0.9em;
-  }
-
   h1, h2, h3, h4, h5 {
-    font-weight: normal;
+    font-weight: light;
   }
 
-  .income {
-    color: green;
+  input, button {
+    font-size: 17px;
+    font-family: 'Lato', sans-serif;
   }
-  .expense {
-    color: red
+}
+
+.income {
+  color: green;
+}
+.expense {
+  color: red
+}
+
+#header {
+  padding: 10px;
+  #logo {
+     display: inline-block;
   }
 
-  .account {
-    display: inline-block;
-    padding: 20px 20px 0 0;
-    // border: solid 1px #ccc;
-    vertical-align: top;
+  #add-account {
+     display: inline-block;
+     padding-left: 10px;
+  }
+}
 
-    table {
-      margin: 8px 0;
-      width: 100%;
-      border: solid 1px #ccc;
-      border-collapse: collapse;
-      td {
-        border: solid 1px #ccc;
-        padding: 2px 5px;
-        &.amount {
-          text-align: right;
-          &:before {
-            content: '$ ';
-          }
+.account {
+  width: 30ch;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+
+  header {
+    padding-bottom: 10px;
+    span {
+      float: right;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    td {
+      border-bottom: solid 1px #ccc;
+      text-transform: capitalize;
+      &.amount {
+        text-align: right;
+        &:before {
+          content: '$ ';
         }
       }
     }
-
   }
-
-  form {
-    .field {
-      display: inline-block;
-    }
-
-    input, select, button {
-      height: 20px;
-      padding: 0 5px;
-    }
-
-    input[type='number'] {
-      width: 10ch;
-    }
-  }
-
-  .item-form {
-    h4 {
-      padding: 10px 0;
-    }
-  }
-
 }
+
+form.add-item {
+  input, button {
+    height: 20px;
+    margin: 0;
+    border: none;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    background: #fff;
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    height: 30px;
+  }
+
+  .name {
+    width: 50%;
+
+  }
+  .amount {
+    width: 35%;
+  }
+  button {
+    width: 15%;
+    vertical-align: middle;
+    background: #efefef;
+  }
+}
+
+#subtotal {
+  float: right;
+}
+
+.item-form {
+  h4 {
+    padding: 10px 0;
+  }
+}
+

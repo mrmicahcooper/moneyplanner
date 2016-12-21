@@ -1,10 +1,16 @@
 import Ember from 'ember';
 
+const { computed, computed: { readOnly } } = Ember;
+
 export default Ember.Controller.extend({
-  accounts: Ember.computed.readOnly('model.accounts'),
-  accountId: Ember.computed('accounts', function() {
+  accounts: readOnly('model.accounts'),
+  accountId: computed('accounts', function() {
     return this.get('accounts.firstObject.id');
   }),
+  account: computed('accountId', function() {
+    return this.store.peekRecord('account', this.get('accountId'));
+  }),
+
   itemAmount: null,
   itemName: null,
 
@@ -17,21 +23,15 @@ export default Ember.Controller.extend({
       this.setProperties({accountName: null});
     },
 
-    addItem() {
-      const accountId =  this.get('accountId');
-      const account = this.store.peekRecord('account', accountId);
+    addItem(account) {
       const itemParams = {
         account,
-        amount: parseInt(this.get('itemAmount')),
-        name: this.get('itemName'),
+        amount: parseInt(account.get('itemAmount')),
+        name: account.get('itemName'),
       };
 
       this.store.createRecord('item', itemParams);
-
-      this.setProperties({
-        itemAmount: null,
-        itemName: null,
-      });
+      account.setProperties({ itemAmount: null, itemName: null });
     }
   }
 
