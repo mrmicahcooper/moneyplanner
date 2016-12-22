@@ -41,6 +41,10 @@ body {
   }
 }
 
+.month {
+  display: inline-block;
+}
+
 .account {
   width: 30ch;
   display: inline-block;
@@ -98,7 +102,7 @@ form.add-item {
   }
 }
 
-#subtotal {
+.subtotal {
   float: right;
 }
 
@@ -108,3 +112,15 @@ form.add-item {
   }
 }
 
+#projections {
+  border-collapse: collapse;
+  td, th {
+    text-align: right;
+    border-bottom: solid 1px #ccc;
+    text-transform: capitalize;
+    padding: 0 10px;
+  }
+  .name {
+    text-align: left;
+  }
+}

@@ -3,6 +3,7 @@ import Ember from 'ember';
 const { computed, computed: { readOnly } } = Ember;
 
 export default Ember.Controller.extend({
+  months: [ 1,2,3,4,5,6,7,8,9,11,12],
   accounts: readOnly('model.accounts'),
   accountId: computed('accounts', function() {
     return this.get('accounts.firstObject.id');

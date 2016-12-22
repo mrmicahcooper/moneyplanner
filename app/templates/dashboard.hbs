@@ -1,19 +1,45 @@
 <header id='header'>
+
   <h1 id='logo'> MoneyPlanner </h1>
 
   <form id='add-account'>
     {{input type=text value=accountName placeholder='account name'}}
     <button {{action 'addAccount'}}> Add Account </button>
   </form>
+
 </header>
 
 <main>
+
+  <table id='projections'>
+    <thead>
+      <tr>
+        <th class='name'> Account </th>
+        {{#each months as |month|}}
+          <th> month {{month}} </th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model.accounts as |account|}}
+        <tr>
+          <td class='name'>{{account.name}}</td>
+          {{#each months as |month|}}
+            <td class={{incomeExpense (product account.total month)}}>
+              $ {{product account.total month}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
   {{#each model.accounts as |account|}}
     <article class='account'>
 
       <header>
-        <h2> 
-          {{account.name}} 
+        <h2>
+          {{account.name}}
           <span> $ {{account.total}} </span>
         </h2>
       </header>
@@ -27,22 +53,23 @@
       <table>
         <tbody>
           {{#each account.orderedItems as |item|}}
-            <tr class='{{incomeExpense item.amount}}'>
+            {{#account-item item=item}}
               <td> {{item.name}} </td>
               <td class='amount'> {{item.amount}} </td>
               {{#if item.toAccount}}
                 <td> ({{item.toAccount}}) </td>
               {{/if}}
-            </tr>
+            {{/account-item}}
           {{/each}}
         </tbody>
       </table>
 
-      <div id='subtotal'>
+      <div class='subtotal'>
         <span class='income'>{{account.totalIncome}}</span>
         /<span class='expense'>{{account.totalExpenses}}</span>
       </div>
 
     </article>
   {{/each}}
+
 </main>
