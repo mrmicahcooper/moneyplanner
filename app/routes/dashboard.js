@@ -3,37 +3,9 @@ export default Ember.Route.extend({
 
   model() {
     return Ember.RSVP.hash({
-      accounts: this.store.peekAll('account')
+      items: this.store.findAll('item'),
+      accounts: this.store.findAll('account')
     });
   },
-
-  beforeModel() {
-    this.store.createRecord('account', {
-      name: "Checking Account",
-      items: [
-        this.store.createRecord('item', {
-          name: 'item',
-          amount: 99
-        }),
-        this.store.createRecord('item', {
-          name: 'item',
-          amount: 99
-        })
-      ]
-    });
-    this.store.createRecord('account', {
-      name: "Savings Account",
-      items: [
-        this.store.createRecord('item', {
-          name: 'item',
-          amount: -99
-        }),
-        this.store.createRecord('item', {
-          name: 'item',
-          amount: 99
-        })
-      ]
-    });
-  }
 
 });

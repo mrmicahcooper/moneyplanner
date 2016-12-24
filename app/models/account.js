@@ -5,8 +5,11 @@ const { attr, hasMany } = DS;
 const { computed, computed: { filterBy, sum, mapBy, sort } } = Ember;
 
 export default DS.Model.extend({
+
   name: attr(),
-  items: hasMany('item'),
+
+  items: hasMany('item', { dependent: 'destroy', inverse: 'account' }),
+
   transferItems: hasMany('item', { inverse: 'transferAccount' }),
 
   allItems: computed('items', 'transferItems', function() {
@@ -46,4 +49,5 @@ export default DS.Model.extend({
   total: computed('allIncome', 'allExpenses', function() {
     return this.get('allIncome') + this.get('allExpenses');
   }),
+
 });

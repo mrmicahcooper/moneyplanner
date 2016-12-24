@@ -10,8 +10,9 @@ export default DS.Model.extend({
   transferAmount: computed('amount', function() {
     return this.get('amount') * -1;
   }),
-  account: belongsTo('account'),
-  transferAccount: belongsTo('account', { inverse: 'transferItems' }),
+  account: belongsTo('account', {inverse: 'items', autoSave: true}),
+  accountId: attr(),
+  transferAccount: belongsTo('account', { inverse: 'transferItems', autoSave: true }),
   income: gt('amount', 0),
   expense: lt('amount', 0),
 

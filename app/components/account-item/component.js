@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { computed, computed: { alias } } = Ember;
+const { computed } = Ember;
 
 export default Ember.Component.extend({
   model: null,
@@ -17,10 +17,8 @@ export default Ember.Component.extend({
   amount: computed('account', 'model.amount', function() {
     let amount;
     if (this.get('model.transferAccount.id') === this.get('account.id') ) {
-      console.log("transfer");
       amount = this.get('model.transferAmount');
     } else {
-      console.log("notransfer");
       amount = this.get('model.amount');
     }
 
