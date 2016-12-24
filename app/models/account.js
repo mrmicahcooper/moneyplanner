@@ -9,7 +9,13 @@ export default DS.Model.extend({
   items: hasMany('item'),
   transferItems: hasMany('item', { inverse: 'transferAccount' }),
 
-  orderedItems: sort('items', function(a, b) {
+  allItems: computed('items', 'transferItems', function() {
+    return this.get('items').toArray().concat(
+      this.get('transferItems').toArray()
+    );
+  }),
+
+  orderedItems: sort('allItems', function(a, b) {
     return a.get('amount') < b.get('amount');
   }),
 
@@ -17,11 +23,27 @@ export default DS.Model.extend({
   expenseItemAmounts: mapBy('expenseItems', 'amount'),
   totalExpenses: sum('expenseItemAmounts'),
 
+  expenseTransferItems: filterBy('transferItems', 'transferExpense'),
+  expenseTransferItemAmounts: mapBy('expenseTransferItems', 'transferAmount'),
+  totalTransferExpenses: sum('expenseTransferItemAmounts'),
+
   incomeItems: filterBy('items', 'income'),
   incomeItemAmounts: mapBy('incomeItems', 'amount'),
   totalIncome: sum('incomeItemAmounts'),
 
-  total: computed('totalIncome', 'totalExpenses', function() {
-    return this.get('totalIncome') + this.get('totalExpenses');
+  incomeTransferItems: filterBy('transferItems', 'transferIncome'),
+  incomeTransferItemAmounts: mapBy('incomeTransferItems', 'transferAmount'),
+  totalTransferIncome: sum('incomeTransferItemAmounts'),
+
+  allIncome: computed('totalIncome', 'totalTransferIncome', function(){
+    return this.get('totalIncome') + this.get('totalTransferIncome');
+  }),
+
+  allExpenses: computed('totalExpenses', 'totalTransferExpenses', function() {
+    return this.get('totalExpenses') + this.get('totalTransferExpenses');
+  }),
+
+  total: computed('allIncome', 'allExpenses', function() {
+    return this.get('allIncome') + this.get('allExpenses');
   }),
 });

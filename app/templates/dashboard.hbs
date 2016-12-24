@@ -38,8 +38,6 @@
     <form>
     <select onchange={{action (mut itemAccountId) value='target.value'}}>
         {{#each model.accounts as |account|}}
-          {{log account.id itemAccountId}}
-          {{log (eq account.id itemAccountId)}}
           <option value={{account.id}} selected={{eq account.id itemAccountId }}>
             {{account.name}}
           </option>
@@ -79,20 +77,17 @@
       <table>
         <tbody>
           {{#each account.orderedItems as |item|}}
-            {{#account-item item=item}}
-              <td> {{item.name}} </td>
-              <td class='amount'> {{item.amount}} </td>
-              {{#if item.toAccount}}
-                <td> ({{item.toAccount}}) </td>
-              {{/if}}
+            {{#account-item model=item account=account as |accountItem|}}
+              <td> {{accountItem.model.name}} </td>
+              <td class='amount'> {{accountItem.amount}} </td>
             {{/account-item}}
           {{/each}}
         </tbody>
       </table>
 
       <div class='subtotal'>
-        <span class='income'>{{account.totalIncome}}</span>
-        /<span class='expense'>{{account.totalExpenses}}</span>
+        <span class='income'>{{account.allIncome}}</span>
+        /<span class='expense'>{{account.allExpenses}}</span>
       </div>
 
     </article>
