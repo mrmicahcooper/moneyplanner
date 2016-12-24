@@ -12,16 +12,30 @@ export default Ember.Controller.extend({
     return this.store.peekRecord('account', this.get('accountId'));
   }),
 
+  itemAccountId: null,
+  transferAccountId: null,
   itemAmount: null,
   itemName: null,
 
   actions: {
+
     addAccount() {
       const accountParams = {
         name: this.get('accountName')
       };
       this.store.createRecord('account', accountParams);
       this.setProperties({accountName: null});
+    },
+
+    add() {
+      const itemParams = {
+        name: this.get('itemName'),
+        amount: parseInt(this.get('itemAmount')),
+        account: this.store.peekRecord('account', this.get('itemAccountId')),
+        transferAccount: this.store.peekRecord('account', this.get('transferAccountId'))
+      };
+      this.store.createRecord('item', itemParams);
+      this.setProperties({ itemAmount: null, itemName: null });
     },
 
     addItem(account) {

@@ -34,6 +34,32 @@
     </tbody>
   </table>
 
+  <section id='new-item'>
+    <form>
+    <select onchange={{action (mut itemAccountId) value='target.value'}}>
+        {{#each model.accounts as |account|}}
+          {{log account.id itemAccountId}}
+          {{log (eq account.id itemAccountId)}}
+          <option value={{account.id}} selected={{eq account.id itemAccountId }}>
+            {{account.name}}
+          </option>
+        {{/each}}
+      </select>
+      {{input class='name' type=text value=itemName placeholder='Item Name'}}
+      <select onchange={{action (mut transferAccountId) value='target.value'}}>
+        <option >No Transfer</option>
+        {{#each model.accounts as |account|}}
+          <option value={{account.id}} selected={{eq account.id transferAccountId }}>
+            {{account.name}}
+          </option>
+        {{/each}}
+      </select>
+      {{input class='amount' type='number' value=itemAmount placeholder='Amt/Month'}}
+      <button {{action 'add'}}> add </button>
+    </form>
+  </section>
+
+  <section id='accounts'>
   {{#each model.accounts as |account|}}
     <article class='account'>
 
@@ -71,5 +97,6 @@
 
     </article>
   {{/each}}
+  </section>
 
 </main>

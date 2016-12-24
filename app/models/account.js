@@ -7,6 +7,7 @@ const { computed, computed: { filterBy, sum, mapBy, sort } } = Ember;
 export default DS.Model.extend({
   name: attr(),
   items: hasMany('item'),
+  transferItems: hasMany('item', { inverse: 'transferAccount' }),
 
   orderedItems: sort('items', function(a, b) {
     return a.get('amount') < b.get('amount');

@@ -8,6 +8,7 @@ export default DS.Model.extend({
   name: attr(),
   amount: attr('number'),
   account: belongsTo('account'),
+  transferAccount: belongsTo('account', { inverse: 'transferItems' }),
   income: gt('amount', 0),
   expense: lt('amount', 0),
 });

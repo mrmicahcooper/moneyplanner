@@ -45,6 +45,25 @@ body {
   display: inline-block;
 }
 
+#new-item {
+  margin: 30px auto;
+
+  input, select, button {
+    border: none;
+    outline: none;
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  button {
+    background: #efefef;
+  }
+}
+
+#accounts {
+  display: block;
+}
+
 .account {
   width: 30ch;
   display: inline-block;
