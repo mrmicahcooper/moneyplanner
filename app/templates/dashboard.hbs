@@ -1,6 +1,6 @@
 <header id='header'>
 
-  <h1 id='logo'> MoneyPlanner </h1>
+  <h1 id='logo'>Fixed Expenses</h1>
 
   <form id='add-account'>
     {{input type=text value=accountName placeholder='account name'}}
@@ -8,10 +8,6 @@
   </form>
 
 </header>
-
-{{#each model.items as |item| }}
-    {{item.name}}
-{{/each}}
 
 <main>
 
@@ -57,7 +53,7 @@
         {{/each}}
       </select>
       {{input class='amount' type='number' value=itemAmount placeholder='Amt/Month'}}
-      <button {{action 'add'}}> add </button>
+      <button {{action 'add'}}> Add </button>
     </form>
   </section>
 
@@ -82,7 +78,7 @@
         <tbody>
           {{#each account.orderedItems as |item|}}
             {{#account-item model=item account=account as |accountItem|}}
-              <td> {{accountItem.model.name}} </td>
+              <td class='name'> {{accountItem.model.name}} </td>
               <td class='amount'> {{accountItem.amount}} </td>
             {{/account-item}}
           {{/each}}
@@ -90,9 +86,24 @@
       </table>
 
       <div class='subtotal'>
-        <span class='income'>{{account.allIncome}}</span>
-        /<span class='expense'>{{account.allExpenses}}</span>
+        <span class='income'>$ {{account.allIncome}}</span>
+        /<span class='expense'>$ {{account.allExpenses}}</span>
       </div>
+
+      <table>
+        <tbody>
+          {{#each account.deletedItems as |item|}}
+            {{#account-item model=item account=account as |accountItem|}}
+              <td class='name'> {{accountItem.model.name}} </td>
+              <td class='amount'> 
+                {{accountItem.amount}}
+                -
+                <a class='delete' {{action 'deleteItem' item}}>(x)</a>
+              </td>
+            {{/account-item}}
+          {{/each}}
+        </tbody>
+      </table>
 
     </article>
   {{/each}}

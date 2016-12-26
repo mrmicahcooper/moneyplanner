@@ -1,7 +1,7 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  font-size: 17px;
+  font-size: 15px;
 
   p, div, small, h1, h2, h3, h4, h5, ul, li, ol, dt, dd, dl {
     padding: 0;
@@ -23,10 +23,19 @@ body {
 }
 
 .income {
-  color: green;
+  font-weight: bold;
 }
 .expense {
-  color: red
+  color: #dd8993;
+  font-style: italic;
+}
+.deleted {
+  color: #dedede;
+}
+.is-transfer {
+  .name:before {
+    content: "*"
+  }
 }
 
 #header {
@@ -65,10 +74,14 @@ body {
 }
 
 #accounts {
-  display: block;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .account {
+  flex-basis: 200px;
+  flex-grow: 2;
+  max-width: 400px;
   width: 30ch;
   display: inline-block;
   vertical-align: top;
@@ -91,6 +104,9 @@ body {
         text-align: right;
         &:before {
           content: '$ ';
+        }
+        .delete {
+          cursor: pointer;
         }
       }
     }
@@ -136,6 +152,7 @@ form.add-item {
 }
 
 #projections {
+  width: 100%;
   border-collapse: collapse;
   td, th {
     text-align: right;

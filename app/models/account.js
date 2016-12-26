@@ -9,12 +9,17 @@ export default DS.Model.extend({
   name: attr(),
 
   items: hasMany('item', { dependent: 'destroy', inverse: 'account' }),
-
   transferItems: hasMany('item', { inverse: 'transferAccount' }),
 
-  allItems: computed('items', 'transferItems', function() {
-    return this.get('items').toArray().concat(
-      this.get('transferItems').toArray()
+  deletedItems: filterBy('items', 'deleted', true),
+  deletedTransferItems: filterBy('transferItems', 'deleted', true),
+
+  undeletedItems: filterBy('items', 'deleted', false),
+  undeletedTransferItems: filterBy('transferItems', 'deleted', false),
+
+  allItems: computed('undeletedItems', 'undeletedTransferItems', function() {
+    return this.get('undeletedItems').toArray().concat(
+      this.get('undeletedTransferItems').toArray()
     );
   }),
 
@@ -22,19 +27,19 @@ export default DS.Model.extend({
     return a.get('amount') < b.get('amount');
   }),
 
-  expenseItems: filterBy('items', 'expense'),
+  expenseItems: filterBy('undeletedItems', 'expense'),
   expenseItemAmounts: mapBy('expenseItems', 'amount'),
   totalExpenses: sum('expenseItemAmounts'),
 
-  expenseTransferItems: filterBy('transferItems', 'transferExpense'),
+  expenseTransferItems: filterBy('undeletedTransferItems', 'transferExpense'),
   expenseTransferItemAmounts: mapBy('expenseTransferItems', 'transferAmount'),
   totalTransferExpenses: sum('expenseTransferItemAmounts'),
 
-  incomeItems: filterBy('items', 'income'),
+  incomeItems: filterBy('undeletedItems', 'income'),
   incomeItemAmounts: mapBy('incomeItems', 'amount'),
   totalIncome: sum('incomeItemAmounts'),
 
-  incomeTransferItems: filterBy('transferItems', 'transferIncome'),
+  incomeTransferItems: filterBy('undeletedTransferItems', 'transferIncome'),
   incomeTransferItemAmounts: mapBy('incomeTransferItems', 'transferAmount'),
   totalTransferIncome: sum('incomeTransferItemAmounts'),
 

@@ -47,7 +47,11 @@ export default Ember.Controller.extend({
 
       this.store.createRecord('item', itemParams).save();
       account.setProperties({ itemAmount: null, itemName: null });
-    }
-  }
+    },
 
+    deleteItem(item) {
+      item.destroyRecord();
+    }
+
+  }
 });

@@ -5,6 +5,7 @@ const { attr, belongsTo } = DS;
 const { computed, computed: { gt, lt }} = Ember;
 
 export default DS.Model.extend({
+  deleted: attr('boolean', { defaultValue: false }),
   name: attr(),
   amount: attr('number'),
   transferAmount: computed('amount', function() {
